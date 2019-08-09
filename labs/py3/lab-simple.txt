@@ -1,0 +1,121 @@
+Let's start with a very simple unit test. For reference, you can refer
+to PythonicTDD.pdf, and also the official unittest documentation:
+
+https://docs.python.org/3/library/unittest.html
+
+In your labs folder, you have a file named "simple.py":
+
+----
+def greet(name):
+    return ""
+----
+
+Your labs folder also has a file named "test_simple.py" containing this:
+
+----
+import unittest
+from simple import greet
+
+class TestSimple(unittest.TestCase):
+    def test_greet(self):
+        pass
+----
+
+Open up a command prompt, and go into this directory.  Run the test
+using the following command:
+
+----
+python3 -m unittest test_simple.py
+----
+
+When you do this, you should see the following output:
+
+----
+.
+--------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+----
+
+When you have this, go on to the next step.
+
+(Note: You may also be able to run the test using your IDE, depending
+on whether it includes special support for running Python
+unittests. Because each IDE is different, and we can't take up class
+time covering all their differences, we recommend just using the
+command line during this class.)
+
+# STEP 2
+
+Let's make our test actually check the behavior of the code. 
+
+In "test_simple.py", modify the "test_greet" method in the
+"TestSimple" class. Remove the "pass", and instead put in one or more
+lines which call the "greet" function with the argument "John". Check
+its return value with `assertEqual()`, and assert that greet() returns
+"Hi, John".
+
+Very important: You are NOT modifying "simple.py" yet. Only
+"test_simple.py".
+
+Run the test (using "python3 -m unittest test_simple.py"). You should
+see something similar to the following:
+
+----
+% python3 -m unittest test_simple.py
+F
+======================================================================
+FAIL: test_greet (test_simple.TestSimple)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "labs/test_simple.py", line 6, in test_greet
+    self.assertEqual("Hi, John", greet("John"))
+AssertionError: 'Hi, John' != ''
+- Hi, John
++ 
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (failures=1)
+----
+
+Yours may be a different in a couple of ways. Some line numbers may be
+different, and the assertEqual() line may look different too. (You may
+have stored greet()'s return value in a variable, for example.) But
+everything else should be the same, or close to it.
+
+Looking at your output, note that:
+
+ * You are shown the test module and test class.
+ * For each failing test, you are shown the test methods, and the line number.
+ * You are shown the expected and actual values, and how they differ.
+ * You wrote three different test functions, and are shown three different failures.
+
+Identify all these elements in your output:
+
+ * Where is the test module (test_simple) specified?
+ * Where is the test class ("TestSimple") specified?
+ * Where is the test method (e.g., "test_greet") specified?
+ * What is the line number of the failing test?
+
+Once you have done all of this, proceed to the next step.
+
+# STEP 3
+
+Time to write actual application code. Modify "simple.py" to make the
+test pass. Run it again with "python3 -m unittest
+test_simple.py". When it's passing, you'll see the following output:
+
+----
+% python3 -m unittest test_simple.py
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+----
+
+Congratulations. You just did test-driven development!
